@@ -27,7 +27,7 @@ Apify.main(async () => {
     }
 
     // Here's the place for your magic...
-    console.log(`Input message: ${input.message}`)
+    console.log(`Input text to Amazon Polly: ${input.text}`)
 
     AWS.config.update({
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -110,7 +110,7 @@ Apify.main(async () => {
     // Store the output
     const output = {
         input,
-        data: res.AudioStream
+        audio: res.AudioStream
     }
     console.log('output: ', output)
     await Apify.setValue('OUTPUT', output)
