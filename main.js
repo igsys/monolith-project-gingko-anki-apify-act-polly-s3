@@ -98,77 +98,18 @@ Apify.main(async () => {
         signatureVersion: 'v4',
         region: process.env.AWS_REGION
     })
-    // console.log('polly', polly)
-
-    // await polly.describeVoices({}, (err, data) => {
-    //     console.log('polly.describeVoices()')
-    //     if (err) {
-    //         console.log(err, err.stack)
-    //     } else {
-    //         availableVoices = data.Voices;
-    //     }
-    // }).promise()
 
     const res = await polly.synthesizeSpeech(pollyParams, (err, data) => {
         if (err) {
             console.log(err.code)
         } else if (data) {
-            // console.log(data)
             return data
-            // if (data.AudioStream instanceof Buffer) {
-            //     Fs.writeFile("./speech.mp3", data.AudioStream, function (err) {
-            //         if (err) {
-            //             return console.log(err)
-            //         }
-            //         console.log("The file was saved!")
-            //     })
-            // }
         }
     }).promise()
 
-    // console.log(res)
-
-    // await polly.synthesizeSpeech(params, (err, data) => {
-    //     console.log('params', params)
-    //     if (err) console.log(err, err.stack) // an error occurred
-    //     else console.log(data)           // successful response
-    //     // var elementId = 'audioElement' + new Date().valueOf().toString()
-    //     // var audioElement = document.createElement('audio')
-    //     // audioElement.setAttribute('id', elementId)
-    //     // document.body.appendChild(audioElement)
-    //     // var uInt8Array = new Uint8Array(data.AudioStream)
-    //     // var arrayBuffer = uInt8Array.buffer
-    //     // var blob = new Blob([arrayBuffer])
-    //     // var url = URL.createObjectURL(blob)
-    //     // audioElement.src = url
-    //     // audioElement.play()
-    // })
-
-    // var s3 = new AWS.S3();
-
-    // // Create a bucket and upload something into it
-    // var bucketName = 'node-sdk-sample-1';
-    // var keyName = 'hello_world.txt';
-
-    // s3.createBucket({ Bucket: bucketName }, function () {
-    //     var params = { Bucket: bucketName, Key: keyName, Body: 'Hello World!' };
-    //     s3.putObject(params, function (err, data) {
-    //         if (err)
-    //             console.log(err)
-    //         else
-    //             console.log("Successfully uploaded data to " + bucketName + "/" + keyName);
-    //     });
-    // });
-    // S3
-    // var s3 = new AWS.S3({ apiVersion: '2006-03-01' });
-    // var params = { Bucket: 'myBucket', Key: 'myImageFile.jpg' };
-    // var file = require('fs').createWriteStream('/path/to/file.jpg');
-    // s3.getObject(params).createReadStream().pipe(file);
-
     // Store the output
     const output = {
-        // message: `${input.message} Hello my friend!`
-        text: `${input.text}`,
+        input,
         data: res.AudioStream
     }
     console.log('output: ', output)
