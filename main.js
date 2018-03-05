@@ -28,6 +28,9 @@ Apify.main(async () => {
 
     // Here's the place for your magic...
     console.log(`Input text to Amazon Polly: ${input.text}`)
+    console.log('ACCESS', process.env.AWS_ACCESS_KEY_ID)
+    console.log('SECRET', process.env.AWS_SECRET_ACCESS_KEY)
+    console.log('REGION', process.env.AWS_REGION)
 
     AWS.config.update({
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -107,6 +110,8 @@ Apify.main(async () => {
             return data
         }
     }).promise()
+
+    let json = JSON.stringify(bufferOne);
 
     // Store the output
     const output = {
