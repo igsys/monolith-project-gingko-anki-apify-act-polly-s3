@@ -97,10 +97,6 @@ Apify.main(async () => {
         VoiceId: getVoiceId(input.language, input.gender)
     }
 
-    // const polly = new AWS.Polly({
-    //     signatureVersion: 'v4',
-    //     region: process.env.AWS_REGION
-    // })
     const polly = new AWS.Polly()
 
     const res = await polly.synthesizeSpeech(pollyParams, (err, data) => {
