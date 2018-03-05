@@ -47,7 +47,7 @@ Apify.main(async () => {
     }
 
     const polly = new AWS.Polly()
-    // console.log('polly', polly)
+    console.log('polly', polly)
 
     // polly.describeVoices({})
     //     .then((err, data) => {
@@ -55,7 +55,7 @@ Apify.main(async () => {
     //     })
 
     // async function describeVoices() {
-    polly.describeVoices({}, (err, data) => {
+    await polly.describeVoices({}, (err, data) => {
         console.log('polly.describeVoices()')
         if (err) {
             console.log(err, err.stack)
