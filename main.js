@@ -8,10 +8,10 @@ if (process.env.NODE_ENV !== 'production') dotenv.load()
 
 // Definition of the input
 const INPUT_TYPE = `{
-    message: Maybe String,
     text: String,
     language: String,
-    gender: String
+    gender: String,
+    format: String,
 }`
 
 Apify.main(async () => {
@@ -87,7 +87,7 @@ Apify.main(async () => {
     }
 
     const pollyParams = {
-        OutputFormat: 'mp3',
+        OutputFormat: input.format,
         SampleRate: '8000',
         Text: input.text,
         TextType: 'text',

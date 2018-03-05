@@ -1,6 +1,6 @@
 {
-    "message": "Hello world!",
     "text": "Amazonから最新情報です。Kindleの電子書籍読み上げサービス「Kindle Speach」がリリースしました。無料のコンテンツをお試しできますが、いかがでしょうか？",
     "language": "french",
-    "gender": "m"
+    "gender": "m",
+    "format": "mp3"
 }
