@@ -111,8 +111,6 @@ Apify.main(async () => {
         }
     }).promise()
 
-    let json = JSON.stringify(bufferOne);
-
     // Store the output
     const output = {
         input,
