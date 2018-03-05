@@ -109,6 +109,8 @@ Apify.main(async () => {
 
     // Store the output
     const output = {
+        crawledAt: new Date(),
+        name: 'apify/igsys/polly-s3',
         input,
         audio: res.AudioStream
     }
