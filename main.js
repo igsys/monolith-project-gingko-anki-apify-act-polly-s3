@@ -8,10 +8,10 @@ if (process.env.NODE_ENV !== 'production') dotenv.load()
 
 // Definition of the input
 const INPUT_TYPE = `{
-    text: String,
-    language: String,
-    gender: String,
-    format: String,
+    text: String
+    language: String
+    gender: String
+    filename: String
 }`
 
 Apify.main(async () => {
@@ -44,53 +44,62 @@ Apify.main(async () => {
                 switch (gender) {
                     case 'm': return 'Matthew'
                     case 'f': return 'Joanna'
+                    default: return 'Matthew'
                 }
             case 'french':
                 switch (gender) {
                     case 'm': return 'Mathieu'
                     case 'f': return 'Celine'
+                    default: return 'Mathieu'
                 }
             case 'japanese':
                 switch (gender) {
                     case 'm': return 'Takumi'
                     case 'f': return 'Mizuki'
+                    default: return 'Takumi'
                 }
             case 'korean':
                 switch (gender) {
                     case 'm': return 'Seoyeon'
                     case 'f': return 'Seoyeon'
+                    default: return 'Seoyeon'
                 }
             case 'german':
                 switch (gender) {
                     case 'm': return 'Hans'
                     case 'f': return 'Vicki'
+                    default: return 'Hans'
                 }
             case 'spanish':
                 switch (gender) {
                     case 'm': return 'Enrique'
                     case 'f': return 'Conchita'
+                    default: return 'Enrique'
                 }
             case 'italian':
                 switch (gender) {
                     case 'm': return 'Giorgio'
                     case 'f': return 'Carla'
+                    default: return 'Giorgio'
                 }
             case 'russian':
                 switch (gender) {
                     case 'm': return 'Maxim'
                     case 'f': return 'Tatyana'
+                    default: return 'Maxim'
                 }
             case 'portuguese':
                 switch (gender) {
                     case 'm': return 'Cristiano'
                     case 'f': return 'Ines'
+                    default: return 'Cristiano'
                 }
             default: return ''
         }
     }
 
     const pollyParams = {
-        OutputFormat: input.format,
+        OutputFormat: 'mp3',
         SampleRate: '8000',
         Text: input.text,
         TextType: 'text',
@@ -112,6 +121,7 @@ Apify.main(async () => {
         crawledAt: new Date(),
         name: 'apify/igsys/polly-s3',
         input,
+        filename: input.filename,
         audio: res.AudioStream
     }
     console.log('output: ', output)
