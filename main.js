@@ -1,6 +1,7 @@
 const Apify = require('apify')
 const typeCheck = require('type-check').typeCheck
 const AWS = require('aws-sdk')
+const Base64 = require('js-base64').Base64
 
 // Development Environment
 const dotenv = require('dotenv')
@@ -100,6 +101,7 @@ Apify.main(async () => {
 
     const pollyParams = {
         OutputFormat: 'mp3',
+        // OutputFormat: 'json',
         SampleRate: '8000',
         Text: input.text,
         TextType: 'text',
@@ -116,6 +118,8 @@ Apify.main(async () => {
         }
     }).promise()
 
+    console.log('res', res)
+
     // Store the output
     // const output = {
     //     crawledAt: new Date(),
@@ -125,13 +129,18 @@ Apify.main(async () => {
     //     audio: res.AudioStream
     // }
 
+    // console.dir(JSON.stringify(new Buffer('hello')))
+    // => '{"type":"Buffer","data":[104,101,108,108,111]}'
+
     // const objJsonStr = JSON.stringify(res.AudioStream)
     // const objJsonB64 = new Buffer(objJsonStr).toString('base64')
     // const objJsonB64 = new Buffer(res.AudioStream).toString('base64')
 
     // const output = res.AudioStream
     // const output = objJsonB64
-    const output = res.AudioStream.toString('base64')
+    // const output = res.AudioStream.toString('base64')
+    // const output = Base64.encode(res.AudioStream)
+    const output = res
 
     console.log('output: ', output)
     await Apify.setValue('OUTPUT', output)
