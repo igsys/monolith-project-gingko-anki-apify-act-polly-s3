@@ -117,13 +117,16 @@ Apify.main(async () => {
     }).promise()
 
     // Store the output
-    const output = {
-        crawledAt: new Date(),
-        name: 'apify/igsys/polly-s3',
-        input,
-        filename: input.filename,
-        audio: res.AudioStream
-    }
+    // const output = {
+    //     crawledAt: new Date(),
+    //     name: 'apify/igsys/polly-s3',
+    //     input,
+    //     filename: input.filename,
+    //     audio: res.AudioStream
+    // }
+
+    const output = res.AudioStream
+
     console.log('output: ', output)
     await Apify.setValue('OUTPUT', output)
 })
