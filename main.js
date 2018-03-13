@@ -144,12 +144,12 @@ Apify.main(async () => {
 
     // const output = res.AudioStream
     // const output = objJsonB64
-    // const output = res.AudioStream.toString('base64')
+    const output = 'base64:' + res.AudioStream.toString('base64')
     // const output = Base64.encode(res.AudioStream)
     // const output = res
     // console.log(res.AudioStream.data)
 
-    const output = JSON.stringify(res.AudioStream, bufferJson.replacer)
+    // const output = JSON.stringify(res.AudioStream, bufferJson.replacer)
 
     console.log('output: ')
     console.dir(output)
