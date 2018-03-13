@@ -1,8 +1,8 @@
 const Apify = require('apify')
 const typeCheck = require('type-check').typeCheck
 const AWS = require('aws-sdk')
-const Base64 = require('js-base64').Base64
-const bufferJson = require('buffer-json')
+// const Base64 = require('js-base64').Base64
+// const bufferJson = require('buffer-json')
 
 // Development Environment
 const dotenv = require('dotenv')
