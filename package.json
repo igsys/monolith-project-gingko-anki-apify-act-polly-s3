@@ -5,6 +5,7 @@
   "dependencies": {
     "apify": "^0.4.32",
     "aws-sdk": "^2.205.0",
+    "buffer-json": "^1.0.0",
     "dotenv": "^5.0.1",
     "js-base64": "^2.4.3",
     "type-check": "^0.3.2"

@@ -2,6 +2,7 @@ const Apify = require('apify')
 const typeCheck = require('type-check').typeCheck
 const AWS = require('aws-sdk')
 const Base64 = require('js-base64').Base64
+const bufferJson = require('buffer-json')
 
 // Development Environment
 const dotenv = require('dotenv')
@@ -120,6 +121,9 @@ Apify.main(async () => {
 
     console.log('res', res)
 
+
+    // https://developers.google.com/drive/v3/web/quickstart/nodejs
+
     // Store the output
     // const output = {
     //     crawledAt: new Date(),
@@ -139,10 +143,13 @@ Apify.main(async () => {
     // const output = res.AudioStream
     // const output = objJsonB64
     // const output = res.AudioStream.toString('base64')
-    const output = Base64.encode(res.AudioStream)
+    // const output = Base64.encode(res.AudioStream)
     // const output = res
     // console.log(res.AudioStream.data)
 
-    console.log('output: ', output)
+    const output = JSON.stringify(res.AudioStream, bufferJson.replacer)
+
+    console.log('output: ')
+    console.dir(output)
     await Apify.setValue('OUTPUT', output)
 })
