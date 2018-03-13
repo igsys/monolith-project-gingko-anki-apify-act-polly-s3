@@ -37,7 +37,9 @@ Apify.main(async () => {
     AWS.config.update({
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-        region: process.env.AWS_REGION
+        // region: process.env.AWS_REGION
+        // region: 'ap-northeast-1'
+        region: 'us-west-2'
     })
 
     const getVoiceId = (lang, gender = 'm') => {
