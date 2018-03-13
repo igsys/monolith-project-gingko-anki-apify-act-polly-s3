@@ -30,16 +30,16 @@ Apify.main(async () => {
 
     // Here's the place for your magic...
     console.log(`Input text to Amazon Polly: ${input.text}`)
-    console.log('ACCESS', process.env.AWS_ACCESS_KEY_ID)
-    console.log('SECRET', process.env.AWS_SECRET_ACCESS_KEY)
-    console.log('REGION', process.env.AWS_REGION)
+    // console.log('ACCESS', process.env.AWS_ACCESS_KEY_ID)
+    // console.log('SECRET', process.env.AWS_SECRET_ACCESS_KEY)
+    // console.log('REGION', process.env.AWS_REGION)
 
     AWS.config.update({
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-        // region: process.env.AWS_REGION
+        region: process.env.AWS_REGION
         // region: 'ap-northeast-1'
-        region: 'us-west-2'
+        // region: 'us-west-2'
     })
 
     const getVoiceId = (lang, gender = 'm') => {
