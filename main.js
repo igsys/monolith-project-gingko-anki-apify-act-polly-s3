@@ -1,8 +1,6 @@
 const Apify = require('apify')
 const typeCheck = require('type-check').typeCheck
 const AWS = require('aws-sdk')
-// const Base64 = require('js-base64').Base64
-// const bufferJson = require('buffer-json')
 const streamingS3 = require('streaming-s3')
 
 // Development Environment
@@ -39,8 +37,6 @@ Apify.main(async () => {
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
         region: process.env.AWS_REGION
-        // region: 'ap-northeast-1'
-        // region: 'us-west-2'
     })
 
     const getVoiceId = (lang, gender = 'm') => {
@@ -126,7 +122,6 @@ Apify.main(async () => {
 
     const s3 = new AWS.S3({ apiVersion: '2006-03-01' })
     const s3Params = {
-        // Bucket: 'https://s3-ap-northeast-1.amazonaws.com/gingko-anki-sync',
         Bucket: 'gingko-anki-sync',
         Key: input.filename,
         ContentType: res.ContentType,
