@@ -3,6 +3,7 @@ const typeCheck = require('type-check').typeCheck
 const AWS = require('aws-sdk')
 // const Base64 = require('js-base64').Base64
 // const bufferJson = require('buffer-json')
+const streamingS3 = require('streaming-s3')
 
 // Development Environment
 const dotenv = require('dotenv')
@@ -123,6 +124,105 @@ Apify.main(async () => {
 
     console.log('res', res)
 
+    const s3 = new AWS.S3({ apiVersion: '2006-03-01' })
+    const s3Params = {
+        // Bucket: 'https://s3-ap-northeast-1.amazonaws.com/gingko-anki-sync',
+        Bucket: 'gingko-anki-sync',
+        Key: input.filename,
+        ContentType: res.ContentType,
+        Body: res.AudioStream
+    }
+    const s3Res = await s3.upload(s3Params, (err, data) => {
+        console.log(err, data)
+    }).promise()
+
+    console.log('s3Params', s3Params)
+    console.log('s3Res', s3Res)
+
+    // const writeAudioStreamToS3 = (aws_publicBucket, audioStream, filename) =>
+    //     putObject(aws_publicBucket, filename, audioStream, 'audio/mp3').then(res => {
+    //         if (!res.ETag) throw res
+    //         else return {
+    //             msg: 'File successfully generated.',
+    //             ETag: res.ETag,
+    //             url: `https://s3-eu-west-1.amazonaws.com/${aws_publicBucket}/${filename}`
+    //         }
+    //     })
+
+    // const putObject = (bucket, key, body, ContentType) => {
+    //     const s3 = new AWS.S3()
+    //     s3.putObject({
+    //         Bucket: bucket,
+    //         Key: key,
+    //         Body: body,
+    //         ContentType
+    //     }).promise()
+    // }
+
+    // writeAudioStreamToS3('gingko-anki-sync', res.audioStream, input.filename)
+    // // Uploading to S3 bucket
+    // // https://github.com/FallenTech/streaming-s3
+    // const uploader = new streamingS3(
+    //     res.AudioStream,
+    //     {
+    //         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    //         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    //     },
+    //     {
+    //         // Bucket: 'example.streaming-s3.com',
+    //         // Key: 'video.mp4',
+    //         // ContentType: 'video/mp4'
+    //         Bucket: 'gingko-anki-sync',
+    //         Bucket: 'https://s3-ap-northeast-1.amazonaws.com/gingko-anki-sync',
+    //         Key: input.filename,
+    //         ContentType: res.ContentType
+    //     }
+    // )
+
+
+    // uploader.on('data', function (bytesRead) {
+    //     console.log(bytesRead, ' bytes read.');
+    // });
+
+    // uploader.on('part', function (number) {
+    //     console.log('Part ', number, ' uploaded.');
+    // });
+
+    // // All parts uploaded, but upload not yet acknowledged.
+    // uploader.on('uploaded', function (stats) {
+    //     console.log('Upload stats: ', stats);
+    // });
+
+    // uploader.on('finished', function (resp, stats) {
+    //     console.log('Upload finished: ', resp);
+    // });
+
+    // uploader.on('error', function (e) {
+    //     console.log('Upload error: ', e);
+    // });
+
+    // uploader.begin(); // important if callback not provided.
+
+    // var uploader = new streamingS3(
+    //     fStream,
+    //     {
+    //         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    //         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    //     },
+    //     {
+    //         Bucket: 'https://s3-ap-northeast-1.amazonaws.com/gingko-anki-sync',
+    //         // Bucket: 'gingko-anki-sync',
+    //         Key: input.filename,
+    //         ContentType: res.ContentType
+    //         // Bucket: 'example.streaming-s3.com',
+    //         // Key: 'video.mp4',
+    //         // ContentType: 'video/mp4'
+    //     }, function (e, resp, stats) {
+    //         if (e) return console.log('Upload error: ', e);
+    //         console.log('Upload stats: ', stats);
+    //         console.log('Upload successful: ', resp);
+    //     }
+    // )
 
     // https://developers.google.com/drive/v3/web/quickstart/nodejs
 
@@ -144,14 +244,14 @@ Apify.main(async () => {
 
     // const output = res.AudioStream
     // const output = objJsonB64
-    const output = 'base64:' + res.AudioStream.toString('base64')
+    // const output = 'base64:' + res.AudioStream.toString('base64')
     // const output = Base64.encode(res.AudioStream)
-    // const output = res
+    const output = res
     // console.log(res.AudioStream.data)
 
     // const output = JSON.stringify(res.AudioStream, bufferJson.replacer)
 
     console.log('output: ')
-    console.dir(output)
+    // console.dir(output)
     await Apify.setValue('OUTPUT', output)
 })
